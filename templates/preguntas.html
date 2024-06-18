@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preguntas</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include 'Header.html' %}
+
+    <div class="container">
+        <h1 class="display-1">Preguntas</h1>
+        <h2 class="display-4">{{ pregunta }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% if empezar == False %}
+            <button name="empezar" type="submit" value="empezar" class="btn btn-primary" >EMPREZAR</button>
+            {% else %}
+            <button name="pregunta" type="submit" value="pregunta" class="btn btn-primary" >PREGUNTA</button>
+            <button name="terminar" type="submit" value="terminar" class="btn btn-primary" >TERMINAR</button>
+            {% endif %}
+        
+        </form>
+        <h2 class="display-4">Preguntas respondidas</h2>
+        <ul class="list-group list-group-flush">
+            {% for preguntas_respondida in preguntas_respondidas %}
+
+                <li class="list-group-item">{{ preguntas_respondida }}</li>
+
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    {% include 'Footer.html' %}
+{% bootstrap_javascript %}
+</body>
+</html>
