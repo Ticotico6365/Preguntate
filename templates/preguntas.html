@@ -22,7 +22,7 @@
             {% endif %}
         
         </form>
-        <h2 class="display-4">Preguntas respondidas</h2>
+        <h2 class="display-4">Preguntas respondidas {{ preguntas_respondidas|length }}</h2>
         <ul class="list-group list-group-flush">
             {% for preguntas_respondida in preguntas_respondidas %}
 
