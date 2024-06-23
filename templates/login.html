@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-sm pt-4 pb-3" style="background-image: url('{% static 'fondo_login.png' %}'); background-repeat: repeat;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <ul class="list-group">
+                <li class="list-group-item bg-custom">
+                    <div class="mb-3">
+                        <label for="nickname" class="form-label">E-mail</label>
+                        <input type="text" class="form-control" id="nickname" name="nickname">
+    {#                    <span class="" style="color: #ECBE31;">{{ error.nickname }}</span>#}
+                    </div>
+                </li>
+                <li class="list-group-item bg-custom">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password">
+    {#                    <span class="" style="color: #ECBE31;">{{ error.contraseña }}</span>#}
+                        <br>
+                        <a href=""
+                           class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">¿Has
+                            olvidado la contraseña?</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="d-flex justify-content-center pb-3 pt-1">
+                <button type="submit" class="btn btn-primary p-2" value="Login">Entrar</button>
+            </div>
+            <div class="d-flex justify-content-end pb-3 pt-1 me-3">
+                <a href=""
+                   class="link-info link-info-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    nuevo usuario</a>
+            </div>
+        </form>
+    </div>
+{% bootstrap_javascript %}
+</body>
+</html>

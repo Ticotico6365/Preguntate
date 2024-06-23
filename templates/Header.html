@@ -19,6 +19,15 @@
             <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="{% url 'preguntas' %}" class="nav-link">Preguntas</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Haz preguntas</a></li>
+            <li class="nav-item">
+                <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="btn btn-primary">Sign-up</a>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-primary">Registrarse</button>
+            </li>
         </ul>
     </header>
     {% bootstrap_javascript %}
