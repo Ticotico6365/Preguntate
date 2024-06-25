@@ -42,15 +42,13 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser):
 
-    nombre = models.CharField(max_length=100)
-    apellido = models.CharField(max_length=100)
     nickname = models.CharField(max_length=100, unique=True)
     e_mail = models.CharField(max_length=100, unique=True)
     rol = models.CharField(max_length=50, default='usuario')
 
     objects = UsuarioManager()
 
-    USERNAME_FIELD = 'nickname'
+    USERNAME_FIELD = 'e_mail'
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
@@ -60,5 +58,5 @@ class Usuario(AbstractBaseUser):
         return check_password(raw_password, self.password)
 
     def __str__(self):
-        return f'{self.nombre} {self.apellido} {self.e_mail} {self.password} {self.nickname} {self.rol}'
+        return f'{self.e_mail} {self.password} {self.nickname} {self.rol}'
 

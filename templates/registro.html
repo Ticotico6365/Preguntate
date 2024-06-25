@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio de sesión</title>
+    <title>Title</title>
     {% load bootstrap5 %}
     {% bootstrap_css %}
 
@@ -22,20 +22,22 @@
 <main class="form-signin w-50 m-auto">
     <form action="" method="post">
                     {% csrf_token %}
-        <h1 class="h3 mb-3 fw-normal">Inicia sesión</h1>
+        <h1 class="h3 mb-3 fw-normal">Crea tu cuenta</h1>
 
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="e_mail">
-            <label for="floatingInput">Email</label>
+            <input type="text" class="form-control" id="nickname" placeholder="nickname" name="nickname">
+            <label for="nickname">Nickname</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="e_mail" placeholder="name@example.com" name="e_mail">
+            <label for="e_mail">Email address</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="contrasena">
-            <label for="floatingPassword">Password</label>
+            <input type="password" class="form-control" id="contrasena" placeholder="Password" name="contrasena">
+            <label for="contrasena">Password</label>
         </div>
-        <div class="form-floating mb-3">
-            <a href="{% url 'registro' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrate</a>
-        </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesión</button>
+        <button class="btn btn-primary w-100 py-2" type="submit">Registrarme</button>
     </form>
 </main>
 
