@@ -13,10 +13,10 @@ def empezar():
         reiniciar()
 
     bbdd_preguntas = Pregunta.objects.all().values_list('pregunta_text', flat=True)
-    #Para meter preguntas de prueba en la base de datos
-    # if Pregunta.objects.all().count() == 0:
-    #     meter_preguntas()
-    #     bbdd_preguntas = Pregunta.objects.all().values_list('pregunta_text', flat=True)
+    # Para meter preguntas de prueba en la base de datos
+    if Pregunta.objects.all().count() == 0:
+        meter_preguntas()
+        bbdd_preguntas = Pregunta.objects.all().values_list('pregunta_text', flat=True)
     for pregunta in bbdd_preguntas:
         preguntas.append(pregunta)
     random.shuffle(preguntas)
