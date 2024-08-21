@@ -12,6 +12,19 @@ class Pregunta(models.Model):
     def __str__(self):
         return self.pregunta_text
 
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, name, password=None):
+        if not email:
+            raise ValueError('El usuario debe tener un correo electrónico')
+        user = self.model(
+            email=self.normalize_email(email),
+            name=name
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+
 # class UsuarioManager(BaseUserManager):
 #     def create_user(self, email, name, password=None):
 #         if not email:

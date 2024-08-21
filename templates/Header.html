@@ -10,21 +10,24 @@
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="{% url 'inicio' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap"></use>
+                <use xlink:href="#bootstrap"></use> <!--This is a Bootstrap icon-->
             </svg>
             <span class="fs-4">Pregúntate</span>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link active" aria-current="page">Home</a></li>
+{#            <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link active" aria-current="page">Home</a></li> <!-- no se si dejarlo-->#}
             <li class="nav-item"><a href="{% url 'preguntas' %}" class="nav-link">Preguntas</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Haz preguntas</a></li>
-            <li class="nav-item">
-                <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="btn btn-primary">Sign-up</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="#" class="nav-link">Haz preguntas</a></li>
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
+                </li>
+            {% endif %}
         </ul>
     </header>
     {% bootstrap_javascript %}
