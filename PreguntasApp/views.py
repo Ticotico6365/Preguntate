@@ -31,14 +31,14 @@ def preguntas(request):
 def do_login(request):
     errors = {}
     if request.method == 'POST':
-        e_mail = request.POST.get('e_mail')
+        username = request.POST.get('nickname')
         password = request.POST.get('contrasena')
 
 
-        if not Usuario.objects.filter(e_mail=e_mail).exists():
-            errors["e_mail"] = "Usuario Incorrecto"
+        if not Usuario.objects.filter(username=username).exists():
+            errors["username"] = "Nombre de usuario Incorrecto"
         else:
-            user = authenticate(request, e_mail=e_mail, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 # Redirección tras un login exitoso
@@ -59,10 +59,10 @@ def registro(request):
         nickname = request.POST.get('nickname')
         password = request.POST.get('contrasena')
         email = request.POST.get('e_mail')
-        if Usuario.objects.filter(e_mail=email).exists():
+        if Usuario.objects.filter(email=email).exists():
             return render(request, 'registro.html', {'error': 'El usuario ya existe'})
         else:
-            user = Usuario(nickname=nickname, e_mail=email)
+            user = Usuario(username=nickname, email=email)
             user.set_password(password)
             user.save()
             return redirect('login')
