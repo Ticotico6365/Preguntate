@@ -51,6 +51,9 @@ def do_login(request):
     # Mostrar formulario de login para método GET
     return render(request, 'login.html', {"error": errors})
 
+def do_logout(request):
+    logout(request)
+    return redirect('login')
 
 def registro(request):
     if request.method == 'GET':
@@ -59,6 +62,10 @@ def registro(request):
         nickname = request.POST.get('nickname')
         password = request.POST.get('contrasena')
         email = request.POST.get('e_mail')
+
+        if nickname == '' or password == '' or email == '':
+            return render(request, 'registro.html', {'error': 'Todos los campos son obligatorios'})
+
         if Usuario.objects.filter(email=email).exists():
             return render(request, 'registro.html', {'error': 'El usuario ya existe'})
         else:
