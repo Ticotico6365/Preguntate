@@ -4,10 +4,6 @@ from django.shortcuts import render, redirect
 from PreguntasApp.models import *
 from django.contrib.auth import authenticate, login, logout
 
-# Create your views here.
-def inicio(request):
-    return render(request, 'inicio.html')
-
 
 def panel_administrador(request):
     return render(request, 'panel_administrador.html')
