@@ -1,15 +1,10 @@
 from PreguntasApp import preguntas as pre
 from django.shortcuts import render, redirect
-
 from PreguntasApp.models import *
 from django.contrib.auth import authenticate, login, logout
 
-
-def panel_administrador(request):
-    return render(request, 'panel_administrador.html')
-
 def preguntas(request):
-
+    usuario = request.user
     empezar = False
     pregunta = ""
     if request.method == 'POST':
@@ -22,7 +17,7 @@ def preguntas(request):
             empezar = False
             pre.reiniciar()
 
-    return render(request, 'preguntas.html', {'empezar': empezar, 'pregunta': pregunta, 'preguntas_respondidas':pre.preguntas_respondiodias})
+    return render(request, 'preguntas.html', {'empezar': empezar, 'pregunta': pregunta, 'preguntas_respondidas':pre.preguntas_respondiodias, "usuario": usuario})
 
 def do_login(request):
     errors = {}
@@ -49,7 +44,7 @@ def do_login(request):
 
 def do_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('inicio')
 
 def registro(request):
     if request.method == 'GET':
@@ -68,4 +63,19 @@ def registro(request):
             user = Usuario(username=nickname, email=email)
             user.set_password(password)
             user.save()
+            #Usuario.objects.create_superuser(username=nickname, email=email, password=password)
             return redirect('login')
+
+
+def panel_administrador(request):
+    return render(request, 'panel_administrador.html')
+
+def panel_usuario(request):
+    usuario = request.user
+    preguntas = Pregunta.objects.filter(user_id=request.user)
+
+    if request.method == 'GET':
+        return render(request, 'panel_usuario.html', {'usuario':usuario, 'preguntas':preguntas})
+
+    # else:
+    #     if

@@ -18,12 +18,12 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        # extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser debe tener is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser debe tener is_superuser=True.')
+        # if extra_fields.get('is_superuser') is not True:
+        #     raise ValueError('Superuser debe tener is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
 
@@ -32,6 +32,8 @@ class Usuario(AbstractBaseUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True, )
     rol = models.CharField(max_length=50, choices=Role.choices, default=Role.CUSTOMER)
+    is_active = models.BooleanField(default=True) #para ver si funciona
+    is_staff = models.BooleanField(default=False) #es empleado
 
     objects = UserManager()
 
@@ -45,6 +47,7 @@ class Pregunta(models.Model):
     pregunta_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
     user = models.ForeignKey('Usuario', null=True, default=1, on_delete=models.SET_NULL)
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.pregunta_text
