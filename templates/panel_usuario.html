@@ -8,30 +8,73 @@
 </head>
 <body>
     {% include 'Header.html' %}
+    <div class="container">
+        <h1 class="h3 mb-3 fw-normal">Haz preguntas</h1>
+        <!-- esto para más adelante-->
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="pregunta" class="form-label">Pregunta</label>
+            <input type="text" class="form-control" id="pregunta" aria-describedby="emailHelp" name="pregunta">
+            <div id="emailHelp" class="form-text">0/500</div>
+            <br>
+            <button type="button" class="btn btn-outline-primary">Privada</button>
+            <button type="button" class="btn btn-outline-primary">Pública</button>
+            <br><br>
+        </form>
+    </div>
 
     <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'panel_usuario' %}">Todas las preguntas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'panel_usuario_privado' %}">Preguntas privadas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'panel_usuario_publico' %}">Preguntas públicas</a>
+            </li>
+        </ul>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Obtener la URL actual
+                const currentURL = window.location.href;
+
+                // Obtener todos los enlaces con la clase 'nav-link'
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                // Iterar sobre cada enlace para verificar si la URL coincide
+                navLinks.forEach(function (link) {
+                    // Verificar si el href del enlace está contenido en la URL actual
+                    if (currentURL.includes(link.href)) {
+                        // Remover la clase 'active' de todos los enlaces
+                        navLinks.forEach(function (link) {
+                            link.classList.remove('active');
+                        });
+
+                        // Agregar la clase 'active' al enlace vigente
+                        link.classList.add('active');
+                    }
+                });
+            });
+        </script>
         <table class="table">
-{#            <thead>#}
-{#            <tr>#}
-{#                <th scope="col">número</th>#}
-{#                <th scope="col">Pregunta</th>#}
-{#                <th scope="col"></th>#}
-{#                <th scope="col"></th>#}
-{#            </tr>#}
-{#            </thead>#}
             <tbody>
             {% for pregunta in preguntas %}
-            <tr>
-                <th scope="row">{{ pregunta.pub_date|date:"d M Y" }}</th>
-                <td>{{ pregunta.pregunta_text }}</td>
-                <td>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Privada
-                    </label>
-                </td>
-                <td><button type="button" class="btn btn-outline-primary">Borrar</button></td>
-            </tr>
+                <tr>
+                    <th scope="row">{{ pregunta.pub_date|date:"d M Y" }}</th>
+                    <td>{{ pregunta.pregunta_text }}</td>
+                    {% if pregunta.is_active == False %}
+                        {% if pregunta.is_private == False %}
+                            <td>
+                                <a href="#" class="btn btn-primary">privada</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a href="#" class="btn btn-outline-primary">Borrar</a>
+                        </td>
+                    {% endif %}
+                </tr>
             {% endfor %}
             </tbody>
         </table>

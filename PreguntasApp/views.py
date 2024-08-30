@@ -77,5 +77,21 @@ def panel_usuario(request):
     if request.method == 'GET':
         return render(request, 'panel_usuario.html', {'usuario':usuario, 'preguntas':preguntas})
 
-    # else:
-    #     if
+    else:
+        if request.POST.get("pregunta") == "":
+            return render(request, 'panel_usuario.html', {'usuario': usuario, 'preguntas': preguntas})
+
+
+def panel_usuario_priv(request):
+    usuario = request.user
+    preguntas = Pregunta.objects.filter(user_id=request.user, is_private=True)
+
+    if request.method == 'GET':
+        return render(request, 'panel_usuario.html', {'usuario':usuario, 'preguntas':preguntas})
+
+def panel_usuario_publi(request):
+    usuario = request.user
+    preguntas = Pregunta.objects.filter(user_id=request.user, is_private=False)
+
+    if request.method == 'GET':
+        return render(request, 'panel_usuario.html', {'usuario':usuario, 'preguntas':preguntas})

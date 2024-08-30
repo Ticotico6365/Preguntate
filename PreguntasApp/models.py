@@ -48,6 +48,7 @@ class Pregunta(models.Model):
     pub_date = models.DateTimeField('date published')
     user = models.ForeignKey('Usuario', null=True, default=1, on_delete=models.SET_NULL)
     is_private = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.pregunta_text
