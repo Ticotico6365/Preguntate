@@ -7,34 +7,38 @@
     {% bootstrap_css %}
 </head>
 <body>
-    {% include 'Header.html' %}
+{% include 'Header.html' %}
 
-    <div class="container">
-        <h1 class="display-1">Preguntas</h1>
-        <h2 class="display-4">{{ pregunta }}</h2>
-        <form method="post">
-            {% csrf_token %}
-            {% if empezar == False %}
-            <button name="empezar" type="submit" value="empezar" class="btn btn-primary" >JUGAR</button>
-            <button name="empezar" type="submit" value="empezar_private" class="btn btn-primary" >JUGAR CON PREGUNTAS PRIVADAS</button>
-            {% else %}
-            <button name="pregunta" type="submit" value="pregunta" class="btn btn-primary" >PREGUNTA</button>
-            <button name="terminar" type="submit" value="terminar" class="btn btn-primary" >TERMINAR</button>
+<div class="container">
+    <h1 class="display-1">Preguntas {{ usuario.id }}</h1>
+    <h2 class="display-4">{{ pregunta }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% if empezar == 0 %}
+            {% if usuario.id != None %}
+            <button name="empezar_private" type="submit" value="empezar_private" class="btn btn-primary">
+                JUGAR CON PREGUNTAS PRIVADAS 
+            </button>
             {% endif %}
+            <button name="empezar" type="submit" value="empezar" class="btn btn-primary">JUGAR</button>
+        {% else %}
+            <button name="pregunta" type="submit" value="pregunta" class="btn btn-primary">PREGUNTA</button>
+            <button name="terminar" type="submit" value="terminar" class="btn btn-primary">TERMINAR</button>
+        {% endif %}
 
-        </form>
-        <h2 class="display-4">Preguntas respondidas {{ preguntas_respondidas|length }}</h2>
-        <ul class="list-group list-group-flush">
-            {% for preguntas_respondida in preguntas_respondidas %}
+    </form>
+    <h2 class="display-4">Preguntas respondidas {{ preguntas_respondidas|length }}</h2>
+    <ul class="list-group list-group-flush">
+        {% for preguntas_respondida in preguntas_respondidas %}
 
-                <li class="list-group-item">{{ preguntas_respondida }}</li>
+            <li class="list-group-item">{{ preguntas_respondida }}</li>
 
-            {% endfor %}
-        </ul>
+        {% endfor %}
+    </ul>
 
-    </div>
+</div>
 
-    {% include 'Footer.html' %}
+{% include 'Footer.html' %}
 {% bootstrap_javascript %}
 </body>
 </html>

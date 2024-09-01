@@ -16,13 +16,16 @@ def empezar(bbdd_preguntas):
     if Pregunta.objects.all().count() == 0:
         meter_preguntas()
         bbdd_preguntas = Pregunta.objects.all().values_list('pregunta_text', flat=True)
+
+        return empezar(bbdd_preguntas)
+
     for pregunta in bbdd_preguntas:
         preguntas.append(pregunta)
     random.shuffle(preguntas)
 
 def extraer_pregunta():
     if len(preguntas) == 0:
-        empezar()
+        empezar(preguntas)
     pregunta = preguntas.pop()
     preguntas_respondiodias.append(pregunta)
     return pregunta
@@ -249,5 +252,12 @@ def meter_preguntas():
         new = Pregunta()
         new.pregunta_text = pregunta
         new.pub_date = datetime.now()
+        new.user_id = 1
+        posibilidades = [True, False]
+        new.is_private = random.choice(posibilidades)
+        if new.is_private:
+            new.is_active = False
+        else:
+            new.is_active = random.choice(posibilidades)
         new.save()
 

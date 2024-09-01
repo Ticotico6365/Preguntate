@@ -3,24 +3,35 @@ from django.shortcuts import render, redirect
 from PreguntasApp.models import *
 from django.contrib.auth import authenticate, login, logout
 
-PREGUNTAS_PRIBADAS = 1
+PREGUNTAS_PRIVADAS = 1
 PREGUNTAS_PUBLICAS = 2
 PREGUNTAS_TODAS = 3
-# Hacer bien lo de las preguntas, que se puedan responder según las opciones
+empezar = 0
 def preguntas(request):
+    global empezar
     usuario = request.user
-    empezar = False
     pregunta = ""
     if request.method == 'POST':
-        empezar = True
         if request.POST.get('empezar'):
-            pre.empezar()
+            if usuario.is_authenticated:
+                preguntas = Pregunta.objects.filter(is_private=False)
+                empezar = PREGUNTAS_PUBLICAS
+                pre.empezar(preguntas)
+            else:
+                preguntas = Pregunta.objects.filter(is_private=False, is_active=True)
+                empezar = PREGUNTAS_TODAS
+                pre.empezar(preguntas)
+        elif request.POST.get('empezar_private'):
+            preguntas = Pregunta.objects.filter(is_private=True)
+            empezar = PREGUNTAS_PRIVADAS
+            pre.empezar(preguntas)
         elif request.POST.get('pregunta'):
             pregunta = pre.extraer_pregunta()
         elif request.POST.get('terminar'):
-            empezar = False
+            empezar = 0
             pre.reiniciar()
-
+    else:
+        empezar = 0
     return render(request, 'preguntas.html', {'empezar': empezar, 'pregunta': pregunta, 'preguntas_respondidas':pre.preguntas_respondiodias, "usuario": usuario})
 
 def do_login(request):
