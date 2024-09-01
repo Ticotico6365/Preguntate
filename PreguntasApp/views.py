@@ -3,6 +3,10 @@ from django.shortcuts import render, redirect
 from PreguntasApp.models import *
 from django.contrib.auth import authenticate, login, logout
 
+PREGUNTAS_PRIBADAS = 1
+PREGUNTAS_PUBLICAS = 2
+PREGUNTAS_TODAS = 3
+# Hacer bien lo de las preguntas, que se puedan responder según las opciones
 def preguntas(request):
     usuario = request.user
     empezar = False

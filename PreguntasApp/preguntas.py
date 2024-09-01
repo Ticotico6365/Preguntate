@@ -8,11 +8,10 @@ from PreguntasApp.models import Pregunta
 preguntas = []
 preguntas_respondiodias = []
 
-def empezar():
+def empezar(bbdd_preguntas):
     if len(preguntas_respondiodias) > 0:
         reiniciar()
 
-    bbdd_preguntas = Pregunta.objects.all().values_list('pregunta_text', flat=True)
     # Para meter preguntas de prueba en la base de datos
     if Pregunta.objects.all().count() == 0:
         meter_preguntas()
