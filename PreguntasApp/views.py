@@ -95,3 +95,14 @@ def panel_usuario_publi(request):
 
     if request.method == 'GET':
         return render(request, 'panel_usuario.html', {'usuario':usuario, 'preguntas':preguntas})
+
+def borrar (request, id):
+    pregunta = Pregunta.objects.get(id=id)
+    pregunta.delete()
+    return redirect('panel_usuario')
+
+def hacer_priv (request, id):
+    pregunta = Pregunta.objects.get(id=id)
+    pregunta.is_private = True
+    pregunta.save()
+    return redirect('panel_usuario')

@@ -11,7 +11,7 @@ urlpatterns = [
     path('panel_usuario/', panel_usuario, name='panel_usuario'),
     path('panel_usuario/preguntas_privadas', panel_usuario_priv, name='panel_usuario_privado'),
     path('panel_usuario/preguntas_publicas', panel_usuario_publi, name='panel_usuario_publico'),
-    path('panel_usuario/preguntas_privadas', hacer_priv, name='hacer_privada'),
-    path('panel_usuario/preguntas_publicas', borrar, name='borrar_pregunta'),
+    path('panel_usuario/privatizar/<int:id>/', hacer_priv, name='hacer_privada'), #Tengo que ver como lo hago (tipo carrito)
+    path('panel_usuario/borrar/<int:id>/', borrar, name='borrar_pregunta'),
 
 ]

@@ -17,6 +17,7 @@
 
         <ul class="nav nav-pills">
             {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'inicio' %}" class="nav-link">Home</a></li>
                 {% if user.is_staff %}
                     <li class="nav-item"><a href="{% url 'panel_administrador' %}" class="nav-link">Panel de administrador</a></li>
                 {% else %}

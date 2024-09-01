@@ -67,11 +67,11 @@
                     {% if pregunta.is_active == False %}
                         {% if pregunta.is_private == False %}
                             <td>
-                                <a href="#" class="btn btn-primary">privada</a>
+                                <a href="{% url 'hacer_privada' pregunta.id %}" class="btn btn-primary">privada</a>
                             </td>
                         {% endif %}
                         <td>
-                            <a href="#" class="btn btn-outline-primary">Borrar</a>
+                            <a href="{% url 'borrar_pregunta' pregunta.id %}" class="btn btn-outline-primary">Borrar</a>
                         </td>
                     {% endif %}
                 </tr>

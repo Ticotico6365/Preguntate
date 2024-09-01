@@ -15,7 +15,8 @@
         <form method="post">
             {% csrf_token %}
             {% if empezar == False %}
-            <button name="empezar" type="submit" value="empezar" class="btn btn-primary" >EMPREZAR</button>
+            <button name="empezar" type="submit" value="empezar" class="btn btn-primary" >JUGAR</button>
+            <button name="empezar" type="submit" value="empezar_private" class="btn btn-primary" >JUGAR CON PREGUNTAS PRIVADAS</button>
             {% else %}
             <button name="pregunta" type="submit" value="pregunta" class="btn btn-primary" >PREGUNTA</button>
             <button name="terminar" type="submit" value="terminar" class="btn btn-primary" >TERMINAR</button>
