@@ -25,7 +25,7 @@ def empezar(bbdd_preguntas):
 
 def extraer_pregunta():
     if len(preguntas) == 0:
-        empezar(preguntas)
+        return 'Has terminado todas las preguntas'
     pregunta = preguntas.pop()
     preguntas_respondiodias.append(pregunta)
     return pregunta

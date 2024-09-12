@@ -27,6 +27,9 @@ def preguntas(request):
             pre.empezar(preguntas)
         elif request.POST.get('pregunta'):
             pregunta = pre.extraer_pregunta()
+            if pregunta == 'Has terminado todas las preguntas':
+                empezar = 0
+                pre.reiniciar()
         elif request.POST.get('terminar'):
             empezar = 0
             pre.reiniciar()
