@@ -78,15 +78,28 @@ def registro(request):
         if Usuario.objects.filter(email=email).exists():
             return render(request, 'registro.html', {'error': 'El usuario ya existe'})
         else:
-            user = Usuario(username=nickname, email=email)
-            user.set_password(password)
-            user.save()
-            #Usuario.objects.create_superuser(username=nickname, email=email, password=password)
+            # user = Usuario(username=nickname, email=email)
+            # user.set_password(password)
+            # user.save()
+            Usuario.objects.create_superuser(username=nickname, email=email, password=password)
             return redirect('login')
 
 
 def panel_administrador(request):
-    return render(request, 'panel_administrador.html')
+    preguntas = Pregunta.objects.filter(is_private=False)
+
+    return render(request, 'panel_administrador.html', {'preguntas': preguntas})
+
+
+def panel_administrador_priv(request):
+    preguntas = Pregunta.objects.filter(is_private=True)
+
+    return render(request, 'panel_administrador.html', {'preguntas': preguntas})
+
+def panel_administrador_publi(request):
+    preguntas = Pregunta.objects.filter(is_private=False)
+
+    return render(request, 'panel_administrador.html', {'preguntas': preguntas})
 
 def panel_usuario(request):
     usuario = request.user
@@ -124,3 +137,4 @@ def hacer_priv (request, id):
     pregunta.is_private = True
     pregunta.save()
     return redirect('panel_usuario')
+
